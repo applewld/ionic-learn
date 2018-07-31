@@ -59,28 +59,11 @@ export class RestProvider {
       .catch(this.handleError);
   }
 
-  /**
-   *处理接口返回的数据，处理成json格式
-   *
-   * @private
-   * @param {*} res
-   * @returns
-   * @memberof RestProvider
-   */
   private extractData(res) {
     let body = res.json();
     return JSON.parse(body) || {};
   }
 
-
-  /**
-   *处理请求中的错误，考虑了各种情况的错误
-   *
-   * @private
-   * @param {*} error
-   * @returns
-   * @memberof RestProvider
-   */
   private handleError(error) {
     let errMsg: string;
     if (error instanceof Response) {

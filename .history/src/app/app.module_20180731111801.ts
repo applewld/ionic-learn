@@ -48,7 +48,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider //rest 的定义导入
+    RestProvider
   ]
 })
 export class AppModule {}

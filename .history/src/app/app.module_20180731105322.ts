@@ -29,9 +29,9 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     BrowserModule,
-    HttpModule,//全局导入 HTTP 模块
+    HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()//全局导入 stirage 模块
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,7 +48,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider //rest 的定义导入
+    RestProvider
   ]
 })
 export class AppModule {}

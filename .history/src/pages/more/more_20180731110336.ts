@@ -40,7 +40,6 @@ export class MorePage {
       if (val != null) {
         this.notLogin = false;
         this.logined = true;
-      }
       else {
         this.notLogin = true;
         this.logined = false;

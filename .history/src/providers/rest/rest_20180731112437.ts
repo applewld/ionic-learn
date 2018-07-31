@@ -72,15 +72,6 @@ export class RestProvider {
     return JSON.parse(body) || {};
   }
 
-
-  /**
-   *处理请求中的错误，考虑了各种情况的错误
-   *
-   * @private
-   * @param {*} error
-   * @returns
-   * @memberof RestProvider
-   */
   private handleError(error) {
     let errMsg: string;
     if (error instanceof Response) {
