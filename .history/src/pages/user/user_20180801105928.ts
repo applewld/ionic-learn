@@ -2,27 +2,24 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RestProvider } from '../../providers/rest/rest';
-import { LoginPage } from '../login/login';
-import { UserPage } from '../user/user';
 import { BaseUI } from '../../common/baseui';
 /**
- * Generated class for the MorePage page.
+ * Generated class for the UserPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
+// @IonicPage()
 @Component({
-  selector: 'page-more',
-  templateUrl: 'more.html',
+  selector: 'page-user',
+  templateUrl: 'user.html',
 })
-export class MorePage extends BaseUI {
-
-  public notLogin: boolean = true;
-  public logined: boolean = false;
+export class UserPage extends BaseUI {
 
   headface: string;
-  userinfo: string[];
+  nickname:string="加载中...";
+  errorMessage:string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,15 +29,6 @@ export class MorePage extends BaseUI {
     public rest: RestProvider
   ) {
     super();
-  }
-
-  presentModal() {
-    const modal = this.modalCtrl.create(LoginPage);
-    //关闭后的回调
-    modal.onDidDismiss(()=>{
-      this.loadUserPage();
-    });
-    modal.present();
   }
 
   ionViewDidEnter() {
@@ -54,21 +42,14 @@ export class MorePage extends BaseUI {
         this.rest.getUserInfo(val)
           .subscribe(
             userinfo => {
-              this.userinfo = userinfo;
+              console.log(userinfo);
+              this.nickname = userinfo["UserNickName"];
               this.headface = userinfo["UserHeadface"]+"?"+(new Date()).valueOf(); //给资源文件添加后缀，去除缓存
-              this.notLogin = false;
-              this.logined = true;
               loading.dismiss();
             });
-
-      }
-      else {
-        this.notLogin = true;
-        this.logined = false;
+            error=> this.errorMessage = <any>error;
       }
     });
   }
-  gotoUserPage(){
-    this.navCtrl.push(UserPage);
-  }
+
 }

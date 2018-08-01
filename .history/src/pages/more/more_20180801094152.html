@@ -27,14 +27,13 @@
 
     </ion-card>
   </div>
-
   <div *ngIf="logined">
-        <ion-list class="marginTop">
-            <button ion-item (click)="gotoUserPage()">
+        <ion-list class="">
+            <button ion-button>
                 <ion-avatar item-start>
                     <img src="{{headface}}" />
                 </ion-avatar>
-                <h2>{{userinfo.UserNickName}}</h2>
+                <h2>userinfo.UserNickName</h2>
                 <p>查看个人主页或编辑简介</p>
             </button>
         </ion-list>

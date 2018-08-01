@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ModalController, LoadingController
 import { Storage } from '@ionic/storage';
 import { RestProvider } from '../../providers/rest/rest';
 import { LoginPage } from '../login/login';
-import { UserPage } from '../user/user';
 import { BaseUI } from '../../common/baseui';
 /**
  * Generated class for the MorePage page.
@@ -12,6 +11,7 @@ import { BaseUI } from '../../common/baseui';
  * Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
@@ -36,10 +36,6 @@ export class MorePage extends BaseUI {
 
   presentModal() {
     const modal = this.modalCtrl.create(LoginPage);
-    //关闭后的回调
-    modal.onDidDismiss(()=>{
-      this.loadUserPage();
-    });
     modal.present();
   }
 
@@ -50,25 +46,15 @@ export class MorePage extends BaseUI {
   loadUserPage() {
     this.storage.get('UserId').then((val) => {
       if (val != null) {
-        var loading = super.showLoading(this.loadCtrl, "加载中...");
-        this.rest.getUserInfo(val)
-          .subscribe(
-            userinfo => {
-              this.userinfo = userinfo;
-              this.headface = userinfo["UserHeadface"]+"?"+(new Date()).valueOf(); //给资源文件添加后缀，去除缓存
-              this.notLogin = false;
-              this.logined = true;
-              loading.dismiss();
-            });
-
+        super.showLoading(this.loadCtrl, "加载中。。。");
+        this.rest.
+        this.notLogin = false;
+        this.logined = true;
       }
       else {
         this.notLogin = true;
         this.logined = false;
       }
     });
-  }
-  gotoUserPage(){
-    this.navCtrl.push(UserPage);
   }
 }

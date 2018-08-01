@@ -11,8 +11,6 @@ import { ChatPage } from '../pages/chat/chat';
 import { DiscoveryPage } from '../pages/discovery/discovery';
 import { NotificationPage } from '../pages/notification/notification';
 import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
-import { UserPage } from '../pages/user/user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,16 +25,12 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     DiscoveryPage,
     NotificationPage,
-    LoginPage,
-    RegisterPage,
-    UserPage
+    LoginPage
   ],
   imports: [
     BrowserModule,
     HttpModule,//全局导入 HTTP 模块
-    IonicModule.forRoot(MyApp, {
-      backButtonText: '返回',
-    }),
+    IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()//全局导入 storige 模块
   ],
   bootstrap: [IonicApp],
@@ -48,15 +42,13 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     DiscoveryPage,
     NotificationPage,
-    LoginPage,
-    RegisterPage,
-    UserPage
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider //rest 的定义导入
   ]
 })
-export class AppModule { }
+export class AppModule {}

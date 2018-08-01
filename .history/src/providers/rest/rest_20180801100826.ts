@@ -53,10 +53,6 @@ export class RestProvider {
   getUserInfo(userid): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlUserInfo + "?userid=" + userid);
   }
-
-  updateNickName(userid, nickname): Observable<string[]> {
-    return this.getUrlReturn(this.apiUrlUpdateNickName + "?userid=" + userid + "&nickname=" + nickname);
-  }
   /**
    *全局获取HTTP请求的方法
    *

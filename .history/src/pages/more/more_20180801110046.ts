@@ -36,10 +36,6 @@ export class MorePage extends BaseUI {
 
   presentModal() {
     const modal = this.modalCtrl.create(LoginPage);
-    //关闭后的回调
-    modal.onDidDismiss(()=>{
-      this.loadUserPage();
-    });
     modal.present();
   }
 

@@ -12,6 +12,7 @@ import { BaseUI } from '../../common/baseui';
  * Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
@@ -36,10 +37,6 @@ export class MorePage extends BaseUI {
 
   presentModal() {
     const modal = this.modalCtrl.create(LoginPage);
-    //关闭后的回调
-    modal.onDidDismiss(()=>{
-      this.loadUserPage();
-    });
     modal.present();
   }
 
@@ -50,7 +47,7 @@ export class MorePage extends BaseUI {
   loadUserPage() {
     this.storage.get('UserId').then((val) => {
       if (val != null) {
-        var loading = super.showLoading(this.loadCtrl, "加载中...");
+        var loading = super.showLoading(this.loadCtrl, "加载中。。。");
         this.rest.getUserInfo(val)
           .subscribe(
             userinfo => {

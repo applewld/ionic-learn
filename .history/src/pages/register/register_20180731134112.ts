@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { BaseUI } from '../../common/baseui';
 import { RestProvider } from '../../providers/rest/rest';
-import { Storage } from '@ionic/storage';
-
-import { RegisterPage } from '../register/register';
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the RegisterPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,15 +11,17 @@ import { RegisterPage } from '../register/register';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-register',
+  templateUrl: 'register.html',
 })
-export class LoginPage extends BaseUI {
+export class RegisterPage extends BaseUI {
 
   mobile: any;
+  nickname: any;
   password: any;
+  confirmPassword: any;
 
-  errorMessage: any;
+  errorMessage:any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,44 +29,43 @@ export class LoginPage extends BaseUI {
     public loadingCtrl: LoadingController,
     public rest: RestProvider,
     public toastCtrl: ToastController,
-    public storage: Storage
+
   ) {
-    super();//调用父类的构造函数
+    super();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    console.log('ionViewDidLoad RegisterPage');
   }
 
-
-  login() {
-    var loading = super.showLoading(this.loadingCtrl, "登录中");
-    this.rest.login(this.mobile, this.password)
-      .subscribe(
-        f => {
-          if (f["Status"] == "OK") {
-            this.storage.set('UserId', f["UserId"]);
-            loading.dismiss();
-            this.dismiss();
-          } else {
-            loading.dismiss();
-            super.showToast(this.toastCtrl, f["StatusContent"]);
-          }
-        },
-        error => this.errorMessage = <any>error
-      );
-  }
-
-  /**
-   *关闭当前页面的方法
-   *
-   * @memberof LoginPage
-   */
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  pushToRegisterPage() {
-    this.navCtrl.push(RegisterPage);
+  doRegister() {
+    if (this.password !== this.confirmPassword) {
+        super.showToast(this.toastCtrl,"两次输入的密码不匹配");
+    }
+    else{
+      var loading = super.showLoading(this.loadingCtrl,"注册中...");
+      this.rest.register(this.mobile,this.nickname,this.password)
+      .subscribe(
+        f=>{
+          if(f["Status"]=="OK"){
+            loading.dismiss();
+            this.dismiss();
+          }
+          else{
+            loading.dismiss();
+            super.showToast(this.toastCtrl,f["StatusContent"]);
+          }
+        },
+        error => this.errorMessage = <any>error
+      );
+    }
+  }
+
+  gotoRegister() {
+    this.navCtrl.pop();
   }
 }
