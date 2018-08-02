@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { RestProvider } from '../../providers/rest/rest';
 import { BaseUI } from '../../common/baseui';
 
+import { HeadfacePage } from '../headface/headface';
 // @IonicPage()
 @Component({
   selector: 'page-user',
@@ -75,5 +76,9 @@ export class UserPage extends BaseUI {
   logout(){
       this.storage.remove('UserId');
       this.viewCtrl.dismiss();
+  }
+
+  gotoHeadFacePage(){
+    this.navCtrl.push(HeadfacePage);
   }
 }
