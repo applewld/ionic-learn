@@ -3,12 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-/*
-  Generated class for the RestProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class RestProvider {
 
@@ -45,17 +39,54 @@ export class RestProvider {
 
 
 
+  /**
+   *用户注册
+   *
+   * @param {*} mobile
+   * @param {*} nickname
+   * @param {*} password
+   * @returns {Observable<string[]>}
+   * @memberof RestProvider
+   */
   register(mobile, nickname, password): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlRegister + "?mobile=" + mobile + "&nickname=" + nickname + "&password=" + password);
   }
 
 
+  /**
+   *获取用户信息
+   *
+   * @param {*} userid
+   * @returns {Observable<string[]>}
+   * @memberof RestProvider
+   */
   getUserInfo(userid): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlUserInfo + "?userid=" + userid);
   }
 
+  /**
+   *修改昵称
+   *
+   * @param {*} userid
+   * @param {*} nickname
+   * @returns {Observable<string[]>}
+   * @memberof RestProvider
+   */
   updateNickName(userid, nickname): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlUpdateNickName + "?userid=" + userid + "&nickname=" + nickname);
+  }
+
+  /**
+   *保存问题
+   *
+   * @param {*} userid
+   * @param {*} title
+   * @param {*} content
+   * @returns {Observable<string[]>}
+   * @memberof RestProvider
+   */
+  saveQuestion(userid, title, content): Observable<string[]> {
+    return this.getUrlReturn(this.apiUrlQuestionSave + "?userid=" + userid + "&title=" + title + "&content=" + content);
   }
   /**
    *全局获取HTTP请求的方法

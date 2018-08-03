@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,normalizeURL, NavController, NavParams, ModalController, LoadingController, ToastController, ViewController, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, normalizeURL, NavController, NavParams, ModalController, LoadingController, ToastController, ViewController, ActionSheetController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RestProvider } from '../../providers/rest/rest';
 import { BaseUI } from '../../common/baseui';
@@ -94,13 +94,13 @@ export class HeadfacePage extends BaseUI {
         this.filePath.resolveNativePath(imagePath) //获取android平台下的正确路径
           .then(filePath => {
             let corretPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            let corretName = imagePath.substr(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+            let corretName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
             this.copyFileToLocalDir(corretPath, corretName, this.createFileName());
           });
       }
       else {
         let corretPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        let corretName = imagePath.substr(imagePath.lastIndexOf('/'));
+        let corretName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(corretPath, corretName, this.createFileName());
       }
     }, (err) => {
@@ -139,12 +139,12 @@ export class HeadfacePage extends BaseUI {
   uploadImage() {
     var url = 'https://imoocqa.gugujiankong.com/api/account/uploadheadface';
     var targetPath = this.pathForImage(this.lastImage);
-    var filename = this.userid + ".jpg";//定义上传后的文件名
+    var filename   = this.userid + ".jpg";//定义上传后的文件名
 
     //上传的参数
     var options = {
       fileKey: "file",
-      filename: filename,
+      fileName: filename,
       chunkedMode: false,
       mimeType: "multipart/form-data",
       params: { 'filename': filename, 'userid': this.userid }
