@@ -25,7 +25,7 @@ export class DetailsPage extends BaseUI {
   answers: string[];
   errorMessage: any;
   isFavourite: boolean;
-  isMyQuestion: boolean;
+  isMyQuestion:boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -77,12 +77,8 @@ export class DetailsPage extends BaseUI {
       );
   }
 
-  showAnswerPage() {
-    let modal = this.modalCtrl.create(AnswerPage, { "id": this.id });
-    //关闭后的回调
-    modal.onDidDismiss(() => {
-      this.loadQusetion(this.id);
-    });
-    modal.present();
+  showAnswerPage(){
+      let modal = this.modalCtrl.create(AnswerPage,{"id": this.id});
+      modal.present();
   }
 }

@@ -78,7 +78,7 @@ export class RestProvider {
     return this.getUrlReturn(this.apiUrlUpdateNickName + "?userid=" + userid + "&nickname=" + nickname);
   }
 
-  /**
+    /**
    * 请求首页的 feeds 流
    * 
    * @returns {Observable<string[]>} 
@@ -101,24 +101,20 @@ export class RestProvider {
     return this.getUrlReturn(this.apiUrlQuestionSave + "?userid=" + userid + "&title=" + title + "&content=" + content);
   }
 
-  /**
- * 获取问题的详情，传递 userid 获取到当前用户有没有关注此问题
- * 
- * @param {any} questionId 
- * @param {any} userId s
- * @returns {Observable<string[]>} 
- * @memberof RestProvider
- */
+    /**
+   * 获取问题的详情，传递 userid 获取到当前用户有没有关注此问题
+   * 
+   * @param {any} questionId 
+   * @param {any} userId s
+   * @returns {Observable<string[]>} 
+   * @memberof RestProvider
+   */
   getQuestionWithUser(questionId, userId): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlGetQuestionWithUser + "?id=" + questionId + "&userid=" + userId);
   }
 
   saveFavourite(questionId, userId): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlSaveFavourite + "?questionid=" + questionId + "&userid=" + userId);
-  }
-
-  answer(userId, questionId, content): Observable<string[]> {
-    return this.getUrlReturn(this.apiUrlAnswer + "?userid=" + userId + "&questionid=" + questionId + "&content=" + content);
   }
   /**
    *全局获取HTTP请求的方法

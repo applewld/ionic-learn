@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { BaseUI } from '../../common/baseui';
 import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
-
-import { AnswerPage } from '../answer/answer';
 /**
  * Generated class for the DetailsPage page.
  *
@@ -25,15 +23,13 @@ export class DetailsPage extends BaseUI {
   answers: string[];
   errorMessage: any;
   isFavourite: boolean;
-  isMyQuestion: boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public rest: RestProvider,
-    public storage: Storage,
-    public modalCtrl: ModalController
+    public storage: Storage
   ) {
     super();
   }
@@ -45,16 +41,19 @@ export class DetailsPage extends BaseUI {
 
   loadQusetion(id) {
     this.storage.get('UserId').then((val) => {
+      console.log(val);
       if (val != null) {
+        console.log(3);
         this.userid = val;
         var loading = super.showLoading(this.loadingCtrl, "加载中...");
         this.rest.getQuestionWithUser(this.id, val)
           .subscribe(q => {
+            console.log(4);
+            loading.dismiss();
             this.question = q;
             this.answers = q["Answers"];
             this.isFavourite = q["IsFavourite"];
-            this.isMyQuestion = (q["OwnUserId"] == val);
-            loading.dismiss();
+            console.log(this.answers);
           },
             error => this.errorMessage = <any>error
           );
@@ -75,14 +74,5 @@ export class DetailsPage extends BaseUI {
       },
         error => this.errorMessage = <any>error
       );
-  }
-
-  showAnswerPage() {
-    let modal = this.modalCtrl.create(AnswerPage, { "id": this.id });
-    //关闭后的回调
-    modal.onDidDismiss(() => {
-      this.loadQusetion(this.id);
-    });
-    modal.present();
   }
 }
